@@ -2,11 +2,11 @@
 
 (function () {
     'use strict';
-    describe('ImageSlide Constructor', function () {
-		it('should correctly respond to its methods', function () {
+    describe('imageDisplay funciton', function () {
+		it('should create a window of approrpaite length', function () {
 			
-			var quickSlide = new ImageSlide(['http:\/\/supergiantgames.com/site/wp-content/uploads/Transistor_Wallpaper_1920x1080.jpg']);
-			expect(quickSlide).to.respondTo('images');
+			var testArray = imageDisplay(["https://s3.amazonaws.com/ksr/projects/660047/photo-main.jpg?1397831981"]);
+			expect(testArray).to.have.string('url(');
 		});
 
 		it('should throw when given non array args', function () {
