@@ -1,35 +1,39 @@
 'use strict';
  
  
-var imagesArray = ["https://s3.amazonaws.com/ksr/projects/660047/photo-main.jpg?1397831981", "http://supergiantgames.com/site/wp-content/uploads/Transistor_Wallpaper_1920x1080.jpg", "http://cloud-4.steampowered.com/ugc/615043645846589420/E237625134C7E37487EC553109818982CE3FD0FD/", "../images/division.jpg", "http://thekoalition.com/images/2013/08/bell.jpg"];
+var imagesArray = ["https://s3.amazonaws.com/ksr/projects/660047/photo-main.jpg?1397831981", "http://supergiantgames.com/site/wp-content/uploads/Transistor_Wallpaper_1920x1080.jpg", "http://cloud-4.steampowered.com/ugc/615043645846589420/E237625134C7E37487EC553109818982CE3FD0FD/", "http://static2.cdn.ubi.com/emea/gamesites/TCTD/wallpapers/TheDivision_Wallpapers_1024x768.jpg", "http://thekoalition.com/images/2013/08/bell.jpg"];
  
- 
- 
-function imageDisplay (images) {
+function ImageSlide () {
+
+} 
+
+
+ImageSlide.prototype.renderContainer = function (images) {
 	if ($.isArray(images) && images !== []){	
 	  // error checks for array type
 		var max = images.length
 		// sets the display width of the div to accomodate varying width based on array length
 		$('.image-slider').css('width',(max*100)+'%');
-  
-		images.map(function (x) {
-		  // appends the contents of the .image-frame div into the dom for each index of the array (could posisbly be split off)
-			$('.image-slider').append($('.image-frame').text());
-			// the most recent div will have its background-image changed to the formatted array index
-			$('.image-display').last().css('background', 'url(' + x + ') center / cover no-repeat');
-		})
-	}
- 
+  	}
 	else {
 		throw new Error("ImageParse requires a non-empty array as argument");
 	}
+}
+  
+ImageSlide.prototype.showImages = function (images) {
+	images.map(function (x) {
+	  // appends the contents of the .image-frame div into the dom for each index of the array (could posisbly be split off)
+		$('.image-slider').append($('.image-frame').text());
+		// the most recent div will have its background-image changed to the formatted array index
+		$('.image-display').last().css('background', 'url(' + x + ') center / cover no-repeat');
+	})
 }
  
  
 var i = 0;
 var interval;
 // inter function that calls the animation, but also loops
-function intervalManager () {
+ImageSlide.prototype.imageMove = function () {
 		interval = setInterval(function () {
 		moveLeft();
 		i += 1;
@@ -56,8 +60,10 @@ $('.stop').click(function () {
 })
  
 $('.play').click(function () {
-	imageDisplay(imagesArray);
-	intervalManager();
+	var slideShow = new ImageSlide();
+	slideShow.renderContainer(imagesArray);
+	slideShow.showImages(imagesArray);
+	slideShow.imageMove();
 })
  
 $('.previous').click(function () {

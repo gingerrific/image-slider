@@ -2,12 +2,19 @@
 
 (function () {
     'use strict';
-    describe('imageDisplay funciton', function () {
+    describe('ImageSlide Constructor', function () {
+		it('should correctly respond to its methods', function () {
+			var quickSlide = new ImageSlide();
+			expect(quickSlide).to.respondTo('renderContainer');
+			expect(quickSlide).to.respondTo('showImages');
+			expect(quickSlide).to.respondTo('imageMove');
+		});
 
 		it('should throw when given non array args', function () {
         	
 			var badImage = function () {
-				imageParse("non-array");
+				var coolSlides = new ImageSlide()
+				coolSlides.renderContainer("cool")
 			};
           
 			expect(badImage).to.throw(Error);
@@ -15,22 +22,27 @@
     });
 
 
-    describe('Image parsing', function () {
+    describe('Image DOM display', function () {
 
-        it('should correctly format the url for display', function () {
+        it('should correctly adjust the slider container size', function () {
 
-			var formatTest = imageDisplay(["https://s3.amazonaws.com/ksr/projects/660047/photo-main.jpg?1397831981"]);
-        	// currently the function doesn't return anything, thus a string isn't found.
-			expect(formatTest).to.have.string("url(");
+			var imageExample = new ImageSlide();
+			imageExample.renderContainer([1,2,3,4,5])
+        	// works in practice
+			expect($('.image-slider').css('width')).to.equal("500%");
         });
     });
 
     describe('Image view', function () {
-		it('should create a slider of appropriate length', function () {
+		it('should keep track of its position in the loop', function () {
 
-			imageDisplay([1,2,3]);
-			// dom element I'm not sure how to test
-			expect($('.image-slider').css()).to.have.string('300');
+			var imageExample = new ImageSlide();
+			imageExample.renderContainer(imagesArray);
+			imageExample.showImages(imagesArray);
+			$('.next').click();
+			$('.next').click();
+			// works in practice
+			expect(i).to.equal(1);
     	});
     });
 
