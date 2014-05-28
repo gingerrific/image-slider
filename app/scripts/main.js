@@ -1,7 +1,7 @@
 'use strict';
  
  
-var imagesArray = ["https://s3.amazonaws.com/ksr/projects/660047/photo-main.jpg?1397831981", "http://supergiantgames.com/site/wp-content/uploads/Transistor_Wallpaper_1920x1080.jpg", "http://cloud-4.steampowered.com/ugc/615043645846589420/E237625134C7E37487EC553109818982CE3FD0FD/", "http://www.radialgames.com/press/ROCKETSROCKETSROCKETS/images/logo.png", "http://thekoalition.com/images/2013/08/bell.jpg"];
+var imagesArray = ["https://s3.amazonaws.com/ksr/projects/660047/photo-main.jpg?1397831981", "http://supergiantgames.com/site/wp-content/uploads/Transistor_Wallpaper_1920x1080.jpg", "http://cloud-4.steampowered.com/ugc/615043645846589420/E237625134C7E37487EC553109818982CE3FD0FD/", "/images/division.jpg", "http://thekoalition.com/images/2013/08/bell.jpg"];
  
  
  
@@ -38,7 +38,7 @@ function intervalManager () {
 		  // when the counter hits the end of the array (in this case) return to one. need to set to index.length instead of '6'
 		  // also resets the image slider to the first image
 			i=1;
-			$('.image-slider').animate({'margin-left': '0px', 'transition': 'none'},10);
+			$('.image-slider').animate({'margin-left': '0px', 'transition': 'none'});
 		}
  
 	}, 2400);
@@ -46,7 +46,7 @@ function intervalManager () {
 }
 // animate the slider moving left the width of an image
 function moveLeft () {
-		$('.image-slider').animate({'margin-left': '-=392px'}, 800);	
+		$('.image-slider').css({'margin-left': '-=392px', 'transition':'all 1.6s linear'});	
 }
  
 // 'controls' - allows the slider to be stopped, restarted and advanced
@@ -62,24 +62,22 @@ $('.play').click(function () {
  
 $('.previous').click(function () {
 	clearInterval(interval);
-	$('.image-slider').animate({'margin-left': '+=392px'}, 800);
+	$('.image-slider').css({'margin-left': '+=392px'});
 	i -=1;	
 	if (i == -1) {
 		$('.image-slider').stop();
-		$('.image-slider').animate({'margin-left': '-=392px'}, 800);
+		$('.image-slider').css({'margin-left': '-=392px'});
 		i = 1;
 	}
-	intervalManager();
 })
  
 $('.next').click(function () {
 	clearInterval(interval);
-	$('.image-slider').animate({'margin-left': '-=392px'}, 800);	
+	$('.image-slider').css({'margin-left': '-=392px'});	
 	i += 1;
 	if (i == 7) {
 		$('.image-slider').stop();
-		$('.image-slider').animate({'margin-left': '+=392px'}, 800);
+		$('.image-slider').css({'margin-left': '+=392px'});
 		i = 5;
 	}
-	intervalManager();	
 })
